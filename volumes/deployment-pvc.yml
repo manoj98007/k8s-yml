@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: counter	
+spec:
+   replicas: 2
+   selector:
+     matchLabels:
+        app: counter
+   template:
+     metadata:
+       labels:
+         app: counter
+     spec:
+       containers:
+       - name: counter
+         image: "kahootali/counter:1.1"
+         volumeMounts:
+         - name: my-pvc1
+           mountPath: /app/
+       volumes: 
+       - name: my-pvc1
+         persistentVolumeClaim: 
+            claimName: counter-pvc1
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+   name: counter-pvc1
+spec:
+   accessModes:
+   - ReadWriteMany
+   resources:
+      requests:
+         storage: 50Mi
+   storageClassName: local
