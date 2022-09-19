@@ -80,7 +80,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-configMap:
-     name: configmap2
-

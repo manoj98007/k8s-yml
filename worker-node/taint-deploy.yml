@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment-prod
+  labels:
+    app: depl-nginx
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: my-nginx
+  template:
+    metadata:
+      labels:
+        app: my-nginx
+    spec:
+      tolerations:
+          - key: environment
+            value: test
+            effect: NoSchedule
+            operator: Equal
+      containers:
+      - name: nginx
+        image: nginx
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 80
