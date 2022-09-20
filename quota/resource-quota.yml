@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+    name: resource-count-quota
+spec:
+  hard:
+          requests.cpu: "0.4"
+          limits.cpu: "0.5"
